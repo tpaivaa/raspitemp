@@ -7,7 +7,7 @@ def exceptionHandleri(e):
     print(exc_type, exc_value)
     print('Ja se Error: ', e)
 
-while(true):
+while(True):
   try:
     basepath = '/sys/bus/w1/devices/'
     sensortemps = {}
