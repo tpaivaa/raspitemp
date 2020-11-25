@@ -7,18 +7,19 @@ def exceptionHandleri(e):
     print(exc_type, exc_value)
     print('Ja se Error: ', e)
 
-try:
-  basepath = '/sys/bus/w1/devices/'
-  sensortemps = {}
-  with os.scandir(basepath) as entries:
-    
-    for entry in entries:
-      if entry.name.startswith('28'):
-        with open(basepath + entry.name + '/w1_slave') as f:
-          temp = str(round(int(f.read().split('t=')[1])/1000,2))
-          sensortemps[entry.name] = temp
-          print(entry.name + ':' + str(temp))
-  print(sensortemps)
+while(true):
+  try:
+    basepath = '/sys/bus/w1/devices/'
+    sensortemps = {}
+    with os.scandir(basepath) as entries:
+      
+      for entry in entries:
+        if entry.name.startswith('28'):
+          with open(basepath + entry.name + '/w1_slave') as f:
+            temp = str(round(int(f.read().split('t=')[1])/1000,2))
+            sensortemps[entry.name] = temp
+            print(entry.name + ':' + str(temp))
+    print(sensortemps)
 
 except Exception as e:
   exceptionHandleri(e)
