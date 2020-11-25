@@ -21,5 +21,5 @@ while(true):
             print(entry.name + ':' + str(temp))
     print(sensortemps)
 
-except Exception as e:
-  exceptionHandleri(e)
+  except Exception as e:
+    exceptionHandleri(e)
