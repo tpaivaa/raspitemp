@@ -1,4 +1,4 @@
-import os
+import sys, traceback, os
 
 def exceptionHandleri(e):
     exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -15,8 +15,7 @@ try:
     for entry in entries:
       if entry.name.startswith('28'):
         with open(basepath + entry.name + '/w1_slave') as f:
-          temp = int(f.read().split('t=')[1])
-          temp = round(temp,2)
+          temp = str(round(int(f.read().split('t=')[1])/1000,2))
           sensortemps[entry.name] = temp
           print(entry.name + ':' + str(temp))
   print(sensortemps)
