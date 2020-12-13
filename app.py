@@ -29,7 +29,7 @@ async def consumer_handler(websocket, path):
     await consumer(message)
 
 async def getSensorTemps():
-  print('sensorTemps')
+  #print('sensorTemps')
   try:
     basepath = '/sys/bus/w1/devices/'
     sensortemps = {}
@@ -41,7 +41,7 @@ async def getSensorTemps():
             temp = str(round(int(f.read().split('t=')[1])/1000,2))
             sensortemps[entry.name] = temp
             # print(entry.name + ':' + str(temp))
-    print(sensortemps)
+    print('Sending: ' + sensortemps)
     log.info(sensortemps)
     return json.dumps(sensortemps)
 
