@@ -41,7 +41,7 @@ async def getSensorTemps():
             temp = str(round(int(f.read().split('t=')[1])/1000,2))
             sensortemps[entry.name] = temp
             # print(entry.name + ':' + str(temp))
-    print('Sending: ' + sensortemps)
+    print(sensortemps)
     log.info(sensortemps)
     return json.dumps(sensortemps)
 
