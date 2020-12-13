@@ -46,7 +46,7 @@ async def getSensorTemps():
     return json.dumps(sensortemps)
 
   except Exception as e:
-    exceptionHandleri(e)
+    await exceptionHandleri(e)
 
 async def raspitemp(websocket, path):
   print('raspitemp')
