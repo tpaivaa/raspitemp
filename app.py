@@ -30,7 +30,7 @@ async def getSensorTemps():
             # print(entry.name + ':' + str(temp))
     print(sensortemps)
     log.info(sensortemps)
-    return sensortemps
+    return json.dumps(sensortemps)
 
   except Exception as e:
     exceptionHandleri(e)
