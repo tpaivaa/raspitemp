@@ -15,6 +15,19 @@ async def exceptionHandleri(e):
   log.error(exc_type, exc_value)
   log.error('Ja se Error: ' + str(e))
 
+async def consumer(message):
+  print('consumer')
+  print(message)
+
+async def producer_handler(websocket, path):
+  while True:
+    message = await getSensorTemps()
+    await websocket.send(message)
+
+async def consumer_handler(websocket, path):
+  async for message in websocket:
+    await consumer(message)
+
 async def getSensorTemps():
   print('sensorTemps')
   try:
@@ -37,6 +50,14 @@ async def getSensorTemps():
 
 async def raspitemp(websocket, path):
   print('raspitemp')
+
+  consumer_task = asyncio.ensure_future(consumer_handler(websocket, path))
+  producer_task = asyncio.ensure_future(producer_handler(websocket, path))
+  done, pending = await asyncio.wait([consumer_task, producer_task], return_when = asyncio.FIRST_COMPLETED,)
+  for task in pending:
+    task.cancel()
+  print(done)
+  '''
   sensortemps = await getSensorTemps()
   try:
     async for message in websocket:
@@ -50,6 +71,7 @@ async def raspitemp(websocket, path):
 
   finally:
     log.info('In finally')
+  '''
 
 start_server = websockets.serve(raspitemp, "0.0.0.0", 8888)
 print('raspitemp after start_server')
