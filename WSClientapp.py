@@ -13,6 +13,7 @@ async def hello():
               data = json.loads(message)
               print(data)
           except asyncio.TimeoutError:
+            print('timeout')
             break
     except Exception as e:
       print(str(e))
