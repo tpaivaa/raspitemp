@@ -7,13 +7,8 @@ async def hello():
       uri = "ws://10.10.10.6:8888"
       async with websockets.connect(uri) as websocket:
         while True:
-          message = ''
-          ping = json.dumps({'ping':1})
           try:
             async for message in websocket:
-              
-              await websocket.send(ping)
-              message = await websocket.recv()
               data = json.loads(message)
               print(data)
           except asyncio.TimeoutError:
