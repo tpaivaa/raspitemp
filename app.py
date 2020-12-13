@@ -46,6 +46,6 @@ async def raspitemp(websocket, path):
     log.info('In finally')
 
 start_server = websockets.serve(raspitemp, "0.0.0.0", 8888)
-
+print('raspitemp after start_server')
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
