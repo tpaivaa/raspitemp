@@ -2,11 +2,12 @@
 
 import sys, traceback, os
 import asyncio, websockets, json, logging
-from systemd import journal
 
 log = logging.getLogger('raspitemp')
-log.addHandler(journal.JournaldLogHandler())
 log.setLevel(logging.INFO)
+
+
+
 
 async def exceptionHandleri(e):
     exc_type, exc_value, exc_traceback = sys.exc_info()
