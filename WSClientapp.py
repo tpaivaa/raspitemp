@@ -9,6 +9,8 @@ async def hello():
         while True:
           try:
             async for message in websocket:
+              await websocket.ping()
+              await websocket.pong()
               data = json.loads(message)
               print(data)
           except asyncio.TimeoutError:

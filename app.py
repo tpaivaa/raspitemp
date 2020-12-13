@@ -5,6 +5,7 @@ import asyncio, websockets, json, logging
 
 log = logging.getLogger('raspitemp')
 log.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
 
 
 async def exceptionHandleri(e):
@@ -21,6 +22,8 @@ async def consumer(message):
 
 async def producer_handler(websocket, path):
   while True:
+    await websocket.ping()
+    await websocket.pong()
     message = await getSensorTemps()
     await websocket.send(message)
 
