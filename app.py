@@ -37,12 +37,14 @@ async def getSensorTemps():
 
 async def raspitemp(websocket, path):
   print('raspitemp')
-  await getSensorTemps()
+  sensortemps = await getSensorTemps()
   try:
     async for message in websocket:
       print(message)
       data = json.loads(message)
       log.info(data)
+      print(data)
+      await websocket.send(sensortemps)
   except Exception as e:
     await exceptionHandleri(e)
 
