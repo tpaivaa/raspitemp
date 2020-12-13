@@ -7,8 +7,6 @@ log = logging.getLogger('raspitemp')
 log.setLevel(logging.INFO)
 
 
-
-
 async def exceptionHandleri(e):
     exc_type, exc_value, exc_traceback = sys.exc_info()
     traceback.print_exc(limit=2, file=sys.stdout)
@@ -35,6 +33,7 @@ async def getSensorTemps():
     exceptionHandleri(e)
 
 async def raspitemp(websocket, path):
+  print('raspitemp')
   await getSensorTemps()
   try:
     async for message in websocket:
