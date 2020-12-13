@@ -1,14 +1,19 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.9
 
 import sys, traceback, os
-import asyncio, websockets, json, syslog
+import asyncio, websockets, json, logging
+from systemd import journal
+
+log = logging.getLogger('raspitemp')
+log.addHandler(journal.JournaldLogHandler())
+log.setLevel(logging.INFO)
 
 async def exceptionHandleri(e):
     exc_type, exc_value, exc_traceback = sys.exc_info()
     traceback.print_exc(limit=2, file=sys.stdout)
-    print(repr(traceback.extract_tb(exc_traceback)))
-    print(exc_type, exc_value)
-    print('Ja se Error: ', e)
+    log.error(repr(traceback.extract_tb(exc_traceback)))
+    log.error(exc_type, exc_value)
+    log.error('Ja se Error: ' + e)
 
 async def getSensorTemps():
   try:
@@ -22,6 +27,7 @@ async def getSensorTemps():
             temp = str(round(int(f.read().split('t=')[1])/1000,2))
             sensortemps[entry.name] = temp
             # print(entry.name + ':' + str(temp))
+    log.info(sensortemps)
     return sensortemps
 
   except Exception as e:
@@ -32,13 +38,12 @@ async def raspitemp(websocket, path):
   try:
     async for message in websocket:
       data = json.loads(message)
-      print(data)
-      syslog.syslog(data)
+      log.info(data)
   except Exception as e:
     await exceptionHandleri(e)
 
   finally:
-    syslog.syslog('In finally')
+    log.info('In finally')
 
 start_server = websockets.serve(raspitemp, "0.0.0.0", 8888)
 
