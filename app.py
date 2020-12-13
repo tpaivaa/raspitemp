@@ -13,7 +13,7 @@ async def exceptionHandleri(e):
   traceback.print_exc(limit=2, file=sys.stdout)
   log.error(repr(traceback.extract_tb(exc_traceback)))
   log.error(exc_type, exc_value)
-  log.error('Ja se Error: ' + e)
+  log.error('Ja se Error: ' + str(e))
 
 async def getSensorTemps():
   print('sensorTemps')
