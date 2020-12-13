@@ -8,11 +8,12 @@ log.setLevel(logging.INFO)
 
 
 async def exceptionHandleri(e):
-    exc_type, exc_value, exc_traceback = sys.exc_info()
-    traceback.print_exc(limit=2, file=sys.stdout)
-    log.error(repr(traceback.extract_tb(exc_traceback)))
-    log.error(exc_type, exc_value)
-    log.error('Ja se Error: ' + e)
+  print('Exceptionhandlerissa')
+  exc_type, exc_value, exc_traceback = sys.exc_info()
+  traceback.print_exc(limit=2, file=sys.stdout)
+  log.error(repr(traceback.extract_tb(exc_traceback)))
+  log.error(exc_type, exc_value)
+  log.error('Ja se Error: ' + e)
 
 async def getSensorTemps():
   print('sensorTemps')
@@ -38,6 +39,7 @@ async def raspitemp(websocket, path):
   await getSensorTemps()
   try:
     async for message in websocket:
+      print(message)
       data = json.loads(message)
       log.info(data)
   except Exception as e:
