@@ -15,6 +15,7 @@ async def exceptionHandleri(e):
     log.error('Ja se Error: ' + e)
 
 async def getSensorTemps():
+  print('sensorTemps')
   try:
     basepath = '/sys/bus/w1/devices/'
     sensortemps = {}
