@@ -5,7 +5,7 @@ import asyncio, websockets, json, logging
 
 log = logging.getLogger('raspitemp')
 log.setLevel(logging.INFO)
-logger.addHandler(logging.StreamHandler())
+log.addHandler(logging.StreamHandler())
 
 
 async def exceptionHandleri(e):
