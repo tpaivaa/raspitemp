@@ -13,7 +13,7 @@ async def hello():
             async for message in websocket:
               
               await websocket.send(ping)
-              await websocket.recv()
+              message = await websocket.recv()
               data = json.loads(message)
               print(data)
           except asyncio.TimeoutError:
